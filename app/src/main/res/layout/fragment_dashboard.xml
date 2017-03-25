@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="no.byteme.magnuspoppe.dashboard.DashboardFragment"
+             android:id="@+id/fragment_dashboard_portrait"
+             android:background="@color/colorPrimary"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        android:orientation="vertical">
+
+        <include layout="@layout/widget_time_online"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30sp"
+            android:stretchColumns="0,1"
+            >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25sp">
+                <include layout="@layout/widget_unique_visitor"/>
+                <include layout="@layout/widget_unique_visits"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25sp">
+                <include layout="@layout/widget_visits_month"/>
+                <include layout="@layout/widget_visits_total"/>
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50sp"
+            android:text="Se alle besøkende til tjeneren"
+            />
+    </LinearLayout>
+
+</FrameLayout>

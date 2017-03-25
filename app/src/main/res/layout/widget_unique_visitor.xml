@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/unique_visitor_value"
+        android:text="21"
+        android:textAppearance="@android:style/TextAppearance.Material.Headline"
+        android:textColor="@color/colorDashboardText"
+        android:textSize="32sp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        />
+    <TextView
+        android:id="@+id/unique_visitor_label"
+        android:text="Unike besøkende denne måned"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textColor="@color/colorDashboardText"
+        android:textSize="16sp"
+        android:alpha="57"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_width="100sp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
