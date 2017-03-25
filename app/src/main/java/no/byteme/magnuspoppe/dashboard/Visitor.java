@@ -48,12 +48,14 @@ public class Visitor
         country         = json.getString("country");
         latitude        = json.getDouble("latitude");
         longitude       = json.getDouble("longitude");
-
-        JSONArray visitJSON = new JSONArray(json.opt("visits"));
+        visits          = new ArrayList<>();
+        JSONArray visitJSON = json.getJSONArray("visits");
         for (int i = 0; i < visitJSON.length(); i++)
         {
             JSONObject obj = (JSONObject) visitJSON.get(i);
-            visits.add( new Visit(this, obj.getString("datetime"), obj.getInt("site")));
+            visits.add(
+                    new Visit(this, obj.optString("datetime"), obj.optInt("site"))
+            );
         }
     }
 

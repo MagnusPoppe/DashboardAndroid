@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashboardFragment#newInstance} factory method to
+ * A simple {@link Fragment}
+ * Use the {@link VisitListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardFragment extends Fragment
+public class VisitListFragment extends Fragment
 {
-     public DashboardFragment()
+    public VisitListFragment()
     {
         // Required empty public constructor
     }
@@ -24,13 +24,12 @@ public class DashboardFragment extends Fragment
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DashboardFragment.
+     * @return A new instance of fragment VisitListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DashboardFragment newInstance()
+    public static VisitListFragment newInstance(String param1, String param2)
     {
-        DashboardFragment fragment = new DashboardFragment();
+        VisitListFragment fragment = new VisitListFragment();
         return fragment;
     }
 
@@ -38,9 +37,6 @@ public class DashboardFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null)
-        {
-        }
     }
 
     @Override
@@ -48,6 +44,7 @@ public class DashboardFragment extends Fragment
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View v = inflater.inflate(R.layout.fragment_visit_list, container, false);
+        return v;
     }
 }
