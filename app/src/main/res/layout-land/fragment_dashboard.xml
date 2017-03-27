@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="25sp"
             android:text="Se alle besøkende til tjeneren"
-            android:onClick="switchView"
+            android:onClick="switchViewVisitList"
             />
     </LinearLayout>
 

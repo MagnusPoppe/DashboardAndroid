@@ -15,40 +15,27 @@ import java.util.ArrayList;
 
 public class Visitor
 {
-    private String ip;
-    private String hostname;
-    private String organisation;
-    private String city;
-    private String country;
-    private double latitude;
-    private double longitude;
+    protected String ip;
+    protected String hostname;
+    protected String organisation;
+    protected String city;
+    protected String country;
+    protected double latitude;
+    protected double longitude;
 
     ArrayList<Visit> visits;
 
-    /**
-     * Default constructor:
-     */
-    public Visitor()
-    {
-        ip = null;
-        hostname = null;
-        organisation = null;
-        city = null;
-        country = null;
-        latitude = 0.0;
-        longitude = 0.0;
-    }
-
     public Visitor(JSONObject json) throws JSONException
     {
-        ip              = json.getString("ip");
-        hostname        = json.getString("hostname");
-        organisation    = json.getString("org");
-        city            = json.getString("city");
-        country         = json.getString("country");
+        ip              = json.getString("ip") != "NULL"        ? json.getString("ip") : "";
+        hostname        = json.getString("hostname")  != "NULL" ? json.getString("hostname")  : "";
+        organisation    = json.getString("org")  != "NULL"      ? json.getString("org")  : "";
+        city            = json.getString("city")  != "NULL"     ? json.getString("city")  : "";
+        country         = json.getString("country")  != "NULL"  ? json.getString("country")  : "";
         latitude        = json.getDouble("latitude");
         longitude       = json.getDouble("longitude");
         visits          = new ArrayList<>();
+
         JSONArray visitJSON = json.getJSONArray("visits");
         for (int i = 0; i < visitJSON.length(); i++)
         {
@@ -78,6 +65,33 @@ public class Visitor
         this.country = country;
         this.latitude = lat;
         this.longitude = lng;
+    }
+
+    public Visit findFirstVisit()
+    {
+        Visit first = null;
+
+        // Looping through to find the first:
+        for( Visit visit : visits)
+        {
+            if (first == null) first = visit;
+            else first = first.compareTo(visit) > 0 ? visit : first ;
+        }
+        return first;
+    }
+
+
+    public Visit findLastVisit()
+    {
+        Visit last = null;
+
+        // Looping through to find the latest:
+        for( Visit visit : visits)
+        {
+            if (last == null) last = visit;
+            else last = last.compareTo(visit) < 0 ? visit : last ;
+        }
+        return last;
     }
 
     /**

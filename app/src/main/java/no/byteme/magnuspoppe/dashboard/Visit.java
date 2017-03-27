@@ -1,15 +1,18 @@
 package no.byteme.magnuspoppe.dashboard;
 
+
+import android.support.annotation.NonNull;
+
 /**
  * Class to store data about a vistor's visits.
  * Created by MagnusPoppe on 23/03/2017.
  */
 
-public class Visit
+public class Visit implements Comparable
 {
-    private Visitor visitor;
-    private String datetime;
-    private int siteVisited;
+    protected Visitor visitor;
+    protected DateTime datetime;
+    protected int siteVisited;
 
     /**
      * Constructor
@@ -20,7 +23,14 @@ public class Visit
     public Visit(Visitor visitor, String datetime, int site)
     {
         this.visitor = visitor;
-        this.datetime = datetime;
+        this.datetime = new DateTime(datetime);
         this.siteVisited = site;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o)
+    {
+        Visit visit = (Visit) o;
+        return datetime.compareTo(visit.datetime);
     }
 }

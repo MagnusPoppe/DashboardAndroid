@@ -1,12 +1,20 @@
 package no.byteme.magnuspoppe.dashboard;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toolbar;
+
+import java.util.ArrayList;
 
 
 /**
@@ -16,6 +24,11 @@ import android.view.ViewGroup;
  */
 public class VisitListFragment extends Fragment
 {
+
+    public final static String VISITOR_SELECTED = "VisitorSelected";
+    ListView visitsList;
+    ArrayList<Visitor> visitors;
+
     public VisitListFragment()
     {
         // Required empty public constructor
@@ -27,7 +40,7 @@ public class VisitListFragment extends Fragment
      * @return A new instance of fragment VisitListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static VisitListFragment newInstance(String param1, String param2)
+    public static VisitListFragment newInstance()
     {
         VisitListFragment fragment = new VisitListFragment();
         return fragment;
@@ -45,6 +58,36 @@ public class VisitListFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_visit_list, container, false);
+        // Setting up the toolbar:
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.my_toolbar);
+        getActivity().setActionBar(toolbar);
+
+        // Filling the list view:
+        visitsList = (ListView) v.findViewById(R.id.visitList);
+        visitors = ViewControllerActivity.visitors;
+
+        VisitListAdapter adapter = new VisitListAdapter(container.getContext(), visitors);
+        visitsList.setAdapter(adapter);
+
+        visitsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Bundle item = new Bundle();
+                item.putInt(VISITOR_SELECTED, position);
+                // TODO: Legg til spesialisert besøkende side.
+                if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    DetailedInfoFragment fragment = new DetailedInfoFragment();
+                    fragment.setArguments(item);
+                    ft.replace(R.id.dashboard, fragment);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+            }
+        });
         return v;
     }
 }

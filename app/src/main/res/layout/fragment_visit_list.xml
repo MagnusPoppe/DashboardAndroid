@@ -2,23 +2,25 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="no.byteme.magnuspoppe.dashboard.VisitListFragment">
-
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </Toolbar>
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context="no.byteme.magnuspoppe.dashboard.VisitListFragment"
+             android:background="#000000">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="aølkfløølkjfdsølkjsadfjløkfdsløjkfdsjlksdaf"/>
-<!--
+        <android.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:titleTextColor="@color/colorDashboardText"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
         <ListView
             android:id="@+id/visitList"
             android:layout_width="match_parent"
@@ -26,7 +28,6 @@
 
             >
         </ListView>
--->
     </LinearLayout>
 
 </FrameLayout>

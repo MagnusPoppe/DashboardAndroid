@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class ViewControllerActivity extends Activity  implements TrafficAPI
 {
-    public ArrayList<Visitor> visitors;
+    public static ArrayList<Visitor> visitors;
     private View dashboardView;
 
     @Override
@@ -36,15 +36,17 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_controller);
 
-        visitors = new ArrayList<>();
         dashboardView  = findViewById(R.id.dashboard);
         updateDatabase();
     }
 
-    public void switchView(View v)
+    public void switchViewVisitList(View v)
     {
-        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
-            FragmentManager fm = getFragmentManager();
+        if (visitors == null)
+        {
+            Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
+        }
+        else if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             VisitListFragment fragment = new VisitListFragment();
             ft.replace(R.id.dashboard, fragment);
@@ -165,7 +167,7 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         private void parseData(String json) throws JSONException
         {
             JSONArray array = new JSONArray(json);
-
+            visitors = new ArrayList<>();
             for(int i = 0; i < array.length(); i++)
                 visitors.add( new Visitor( (JSONObject) array.get(i)) );
         }

@@ -5,4 +5,5 @@
     <color name="colorAccent">#005C5454</color>
 
     <color name="colorDashboardText">#fefefe</color>
+    <color name="colorCustomBackground">#eeeeee</color>
 </resources>

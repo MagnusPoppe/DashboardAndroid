@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:stretchColumns="0,1"
         android:padding="20sp"
-        android:background="#eeeeee">
+        android:background="@color/colorCustomBackground">
         <TableRow>
             <LinearLayout
                 android:orientation="vertical">
@@ -18,12 +18,14 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Material.Headline"
                     android:textSize="24sp"
-                    android:text="215.123.12.124"/>
+                    android:text="215.123.12.124"
+                    android:id="@+id/visit_list_ip"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                    android:text="GoogleBot"/>
+                    android:text="GoogleBot"
+                    android:id="@+id/visit_list_org"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -39,7 +41,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Material.Body1"
                     android:textAlignment="viewEnd"
-                    android:text="today, kl. 21:30"/>
+                    android:text="today, kl. 21:30"
+                    android:id="@+id/visit_list_date"/>
             </LinearLayout>
         </TableRow>
     </TableLayout>
