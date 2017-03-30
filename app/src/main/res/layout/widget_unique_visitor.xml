@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/unique_visitor_value"
-        android:text="21"
+        android:text="@string/NotYetLoaded"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@color/colorDashboardText"
         android:textSize="32sp"
@@ -16,7 +16,7 @@
         />
     <TextView
         android:id="@+id/unique_visitor_label"
-        android:text="Unike besøkende denne måned"
+        android:text="@string/visits_this_month"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:textColor="@color/colorDashboardText"
         android:textSize="16sp"

@@ -63,15 +63,15 @@ public class VisitListAdapter extends BaseAdapter
 
         // Formatting the time:
         Calendar c = Calendar.getInstance();
-        DateTime dateTime = current.visits.get(current.visits.size()-1).datetime;
-        list.textDate.setText(
-            dateTime.prettyPrint(
-                view,
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DATE)
-            )
-        );
+        DateTime dateTime;
+        if (current.visits.size() > 1)
+            dateTime = current.visits.get(current.visits.size()-1).datetime;
+        else if (current.visits.size() == 1)
+            dateTime = current.visits.get(0).datetime;
+        else
+            dateTime = new DateTime("0000-00-00 00:00:00");
+
+        list.textDate.setText(dateTime.prettyPrint(view));
         return view;
     }
 

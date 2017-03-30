@@ -12,7 +12,7 @@ interface TrafficAPI
     // Path to API:
     String PATH = "api.php/";
 
-    // Base addresses:
+    // Base addresses:  192.168.10.103
     String LOCAL_DOMAIN = "http://192.168.10.103:80/traffic/";
     String LIVE_DOMAIN  = "http://byteme.no/";
 

@@ -4,20 +4,14 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.util.Calendar;
+
 /**
  * Created by MagnusPoppe on 25/03/2017.
  */
 
 public class DateTime implements Comparable
 {
-    int year;
-    int month;
-    int day;
-
-    int hour;
-    int minute;
-    int second;
-
     final static private int DATE = 0;
     final static private int TIME = 1;
 
@@ -28,6 +22,14 @@ public class DateTime implements Comparable
     final static private int HOUR = 0;
     final static private int MINUTE = 1;
     final static private int SECOND = 2;
+
+    int year;
+    int month;
+    int day;
+
+    int hour;
+    int minute;
+    int second;
 
     public DateTime(String textDateTime)
     {
@@ -51,9 +53,51 @@ public class DateTime implements Comparable
         }
     }
 
-    public boolean sameDay(int year, int month, int day)
+    public boolean sameDay(DateTime someDay)
     {
-        return this.year == year && this.month == month && this.day == day;
+        return this.year == someDay.year && this.month == someDay.month && this.day == someDay.day;
+    }
+
+    public static DateTime now()
+    {
+        Calendar c = Calendar.getInstance();
+        String now = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DATE);
+        now += " " + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+        return new DateTime(now);
+    }
+
+    public boolean lastXDays(int x)
+    {
+        DateTime now = now();
+
+        // Finding the correct date for x days ago.
+        while (x<0)
+        {
+            if (x < now.day)
+            {
+                now.day -= x;
+                x -= now.day;
+            }
+            else
+            {
+                x -= now.day;
+                now.month -= 1;
+
+
+                if (month == 0)
+                {
+                    year--;
+                    month = 12;
+                }
+
+                if (now.month == 2)          now.day = 28;
+                else if (now.month % 2 != 0) now.day = 31;
+                else if (now.month % 2 == 0) now.day = 30;
+            }
+        }
+
+        // Asserting answer:
+        return compareTo(now) > 0;
     }
 
     @Override
@@ -62,9 +106,9 @@ public class DateTime implements Comparable
         return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
     }
 
-    public String prettyPrint(View view, int year, int month, int day)
+    public String prettyPrint(View view)
     {
-        if (sameDay(year, month, day))
+        if (sameDay(DateTime.now()))
         {
             return printToday();
         }

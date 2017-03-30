@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-
+              android:layout_height="wrap_content"
+    >
     <TextView
         android:id="@+id/timer_online_value"
-        android:text="123:21:34:59"
+        android:text="@string/NotYetLoaded"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textSize="48sp"
         android:textColor="@color/colorDashboardText"
@@ -16,7 +16,7 @@
         />
     <TextView
         android:id="@+id/timer_online_label"
-        android:text="Tid Online"
+        android:text="@string/time_online"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorDashboardText"
         android:textSize="24sp"

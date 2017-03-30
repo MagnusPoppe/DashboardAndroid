@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Dashboard</string>
-
     <string name="NoConnection">"Ingen nettverkstilgang. Kan ikke laste varer."</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="NotYetLoaded">N/A</string>
+    <string name="visits_last_month">Besøk sist måned</string>
+    <string name="total_visits">Totalt antall besøk</string>
+    <string name="unique_visits">Totalt antall unike besøk</string>
+    <string name="visits_this_month">Unike besøkende denne måned</string>
+    <string name="time_online">Tid Online</string>
     <string-array name="months">
         <item>January</item>
         <item>Febuary</item>

@@ -5,8 +5,8 @@
               android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/visitor_month_value"
-        android:text="691"
+        android:id="@+id/visitor_total_value"
+        android:text="@string/NotYetLoaded"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@color/colorDashboardText"
         android:textSize="32sp"
@@ -15,8 +15,8 @@
         android:textAlignment="center"
         />
     <TextView
-        android:id="@+id/visitor_month_label"
-        android:text="Totalt antall besøk"
+        android:id="@+id/visitor_total_label"
+        android:text="@string/total_visits"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:textColor="@color/colorDashboardText"
         android:textStyle="bold"

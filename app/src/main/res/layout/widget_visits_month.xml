@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/visitor_month_value"
-        android:text="534"
+        android:text="@string/NotYetLoaded"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@color/colorDashboardText"
         android:textSize="32sp"
@@ -16,7 +16,7 @@
         />
     <TextView
         android:id="@+id/visitor_month_label"
-        android:text="Besøk sist måned"
+        android:text="@string/visits_last_month"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:textColor="@color/colorDashboardText"
         android:textSize="16sp"

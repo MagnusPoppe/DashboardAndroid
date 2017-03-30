@@ -25,6 +25,11 @@ public class Visit implements Comparable
         this.visitor = visitor;
         this.datetime = new DateTime(datetime);
         this.siteVisited = site;
+
+        // Checking if visit was less than 30 days ago:
+        if (ViewControllerActivity.last30Days != null)
+            if (this.datetime.lastXDays(30))
+                ViewControllerActivity.last30Days.add(this);
     }
 
     @Override

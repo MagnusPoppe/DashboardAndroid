@@ -28,6 +28,10 @@ import java.util.ArrayList;
 public class ViewControllerActivity extends Activity  implements TrafficAPI
 {
     public static ArrayList<Visitor> visitors;
+    public static ArrayList<Visit> last30Days;
+    public static boolean upToDate = false;
+    public static int totalVisits = 0;
+    public static int monthlyVisits = 0;
     private View dashboardView;
 
     @Override
@@ -42,18 +46,20 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
 
     public void switchViewVisitList(View v)
     {
-        if (visitors == null)
+        if (upToDate)
         {
+            if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                VisitListFragment fragment = new VisitListFragment();
+                ft.replace(R.id.dashboard, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        }
+        else
             Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
-        }
-        else if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            VisitListFragment fragment = new VisitListFragment();
-            ft.replace(R.id.dashboard, fragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
     }
 
     private void updateDatabase()
@@ -168,8 +174,16 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         {
             JSONArray array = new JSONArray(json);
             visitors = new ArrayList<>();
+            last30Days = new ArrayList<>();
+
             for(int i = 0; i < array.length(); i++)
+            {
                 visitors.add( new Visitor( (JSONObject) array.get(i)) );
+                totalVisits += visitors.get(i).visits.size();
+            }
+            DashboardFragment.visits_month.setText(""+last30Days.size());
+            DashboardFragment.visits_total.setText(""+totalVisits);
+            DashboardFragment.unique_visitor.setText(""+visitors.size());
         }
 
         @Override
@@ -179,19 +193,40 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
 
             String statusmessage = "";
             if (result == DEVICE_UPDATED)
+            {
                 statusmessage = "Device data updated.";
+                upToDate = true;
+            }
             else if (result == DEVICE_UP_TO_DATE)
+            {
                 statusmessage = "Device up to date.";
+                upToDate = true;
+            }
             else if (result == MALFORMED_URL_EXCEPTION)
+            {
                 statusmessage = "Bad url...";
+                upToDate = false;
+            }
             else if (result == IO_ERROR)
+            {
                 statusmessage = "Problems reading the downloaded data. ( I/O ERROR )";
+                upToDate = false;
+            }
             else if (result == JSON_PARSE_ERROR)
+            {
                 statusmessage = "Bad JSON format on data.";
+                upToDate = false;
+            }
             else if (result == ERROR)
+            {
                 statusmessage = "Something went wrong.";
+                upToDate = false;
+            }
             else
+            {
                 statusmessage = "Unknown errorcode... WHAT?!";
+                upToDate = false;
+            }
 
             Log.d("ASYNC_POST_EXECUTE", "Result-code="+result+", Message="+statusmessage);
             Snackbar.make(dashboardView, statusmessage, Snackbar.LENGTH_LONG).show();

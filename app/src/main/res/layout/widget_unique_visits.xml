@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/unique_visits_value"
-        android:text="691"
+        android:text="@string/NotYetLoaded"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@color/colorDashboardText"
         android:textSize="32sp"
@@ -17,7 +17,7 @@
         />
     <TextView
         android:id="@+id/unique_visits_label"
-        android:text="Totalt antall unike besøk"
+        android:text="@string/unique_visits"
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:textColor="@color/colorDashboardText"
         android:textSize="16sp"
