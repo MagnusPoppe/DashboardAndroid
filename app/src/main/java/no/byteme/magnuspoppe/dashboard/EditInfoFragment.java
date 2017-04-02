@@ -51,6 +51,7 @@ public class EditInfoFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map)
     {
+        latLng = new LatLng(14.4124123, 12.1451241);
         map.addMarker(new MarkerOptions().position(latLng).title("Visitor location"));
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
