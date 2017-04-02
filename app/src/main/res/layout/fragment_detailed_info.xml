@@ -1,8 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
+             xmlns:map="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             xmlns:map="http://schemas.android.com/apk/res-auto"
              tools:context="no.byteme.magnuspoppe.dashboard.DetailedInfoFragment"
              android:background="@color/colorCustomBackground">
 
@@ -15,18 +17,22 @@
         <fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="120sp"
+            android:layout_height="0dp"
             android:layout_weight=".4"
-            android:elevation="4dp"
-            class="com.google.android.gms.maps.MapFragment" />
+            android:elevation="2sp"
+            android:background="@color/colorCustomBackground"
+            class="com.google.android.gms.maps.MapFragment"/>
 
 <!-- NEDRE DEL AV VIEW. INFORMASJON -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".6">
         <LinearLayout
             android:padding="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight=".6">
+            android:layout_height="0dp"
+            android:orientation="vertical">
 
     <!-- OVERSKRIFT, IP + NAVN-->
             <TextView
@@ -149,8 +155,20 @@
 
             </TableLayout>
         </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
 
-
-</FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16sp"
+        android:src="@android:drawable/ic_menu_edit"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/map"
+        app:layout_anchorGravity="bottom|right|end"
+        android:onClick="switchViewEditInfo"/>
+</android.support.design.widget.CoordinatorLayout>

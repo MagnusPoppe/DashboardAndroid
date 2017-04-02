@@ -62,10 +62,10 @@ public class VisitListAdapter extends BaseAdapter
         list.textOrg.setText(current.organisation);
 
         // Formatting the time:
-        DateTime dateTime = current.findLastVisit().datetime;
+        Visit visit = current.findLastVisit();
 
-        if (dateTime != null)
-            list.textDate.setText(dateTime.prettyPrint(view));
+        if (visit != null)
+            list.textDate.setText(visit.datetime.prettyPrint(view));
         else
             list.textDate.setText(view.getResources().getString(R.string.NotValidDate));
         return view;

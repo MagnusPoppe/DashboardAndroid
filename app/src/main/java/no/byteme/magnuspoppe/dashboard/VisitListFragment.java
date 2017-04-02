@@ -1,12 +1,10 @@
 package no.byteme.magnuspoppe.dashboard;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,9 +72,16 @@ public class VisitListFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+
+                if( visitors.get(position).visits.size() == 0)
+                {
+                    String message = getResources().getString(R.string.NotValidDate);
+                    Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+                    return;
+                }
+
                 Bundle item = new Bundle();
                 item.putInt(VISITOR_SELECTED, position);
-                // TODO: Legg til spesialisert besøkende side.
                 if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     DetailedInfoFragment fragment = new DetailedInfoFragment();

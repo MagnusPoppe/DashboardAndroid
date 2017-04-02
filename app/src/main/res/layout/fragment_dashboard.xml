@@ -35,19 +35,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30sp"
-            android:stretchColumns="0,1"
+            android:stretchColumns="0,1,2"
             >
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25sp">
                 <include layout="@layout/widget_unique_visitor"/>
-                <include layout="@layout/widget_unique_visits"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25sp">
                 <include layout="@layout/widget_visits_month"/>
                 <include layout="@layout/widget_visits_total"/>
             </TableRow>
@@ -59,6 +53,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="50sp"
             android:text="Se alle besøkende til tjeneren"
+            android:id="@+id/showListButton"
+            android:visibility="gone"
             android:onClick="switchViewVisitList"
             />
     </LinearLayout>

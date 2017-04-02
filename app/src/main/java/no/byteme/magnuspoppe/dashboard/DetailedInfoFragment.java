@@ -1,6 +1,7 @@
 package no.byteme.magnuspoppe.dashboard;
 
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +16,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
 {
 
-    int visitorID;
+    static int visitorID;
 
     TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address;
     MapFragment mapFragment;

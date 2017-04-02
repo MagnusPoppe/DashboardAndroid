@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.model.Dash;
 
@@ -62,6 +63,19 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         }
         else
             Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void switchViewEditInfo(View v)
+    {
+        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+        {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            EditInfoFragment fragment = new EditInfoFragment();
+            ft.replace(R.id.dashboard, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
     private void updateDatabase()
@@ -226,6 +240,8 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
             {
                 DashboardFragment.updateWidgets();
                 DashboardFragment.updateChartData();
+                Button updateBtn = (Button) findViewById(R.id.showListButton);
+                updateBtn.setVisibility(Button.VISIBLE);
             }
             Snackbar.make(dashboardView, statusmessage, Snackbar.LENGTH_LONG).show();
         }
