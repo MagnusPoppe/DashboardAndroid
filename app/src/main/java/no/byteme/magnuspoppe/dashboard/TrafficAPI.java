@@ -7,7 +7,7 @@ package no.byteme.magnuspoppe.dashboard;
 
 interface TrafficAPI
 {
-    boolean LIVE_CONNECTION = false;
+    boolean LIVE_CONNECTION = true;
 
     // Path to API:
     String PATH = "api.php/";

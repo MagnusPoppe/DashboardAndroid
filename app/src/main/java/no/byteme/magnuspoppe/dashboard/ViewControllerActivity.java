@@ -12,6 +12,8 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.model.Dash;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +70,7 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         {
             AsyncGetTraffic asyncCall = new AsyncGetTraffic();
 
-            if (LIVE_CONNECTION) asyncCall.execute(LIVE_DOMAIN + PATH, "GET");
+            if (LIVE_CONNECTION) asyncCall.execute(LIVE_DOMAIN + PATH + "traffic/", "GET");
             else asyncCall.execute(LOCAL_DOMAIN + PATH + "traffic/", "GET");
         }
         else
@@ -106,7 +108,6 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         protected Long doInBackground(String... params)
         {
             HttpURLConnection connection = null;
-            InputStreamReader ioReader = null;
             long result = 0L;
 
             try
@@ -181,9 +182,6 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
                 visitors.add( new Visitor( (JSONObject) array.get(i)) );
                 totalVisits += visitors.get(i).visits.size();
             }
-            DashboardFragment.visits_month.setText(""+last30Days.size());
-            DashboardFragment.visits_total.setText(""+totalVisits);
-            DashboardFragment.unique_visitor.setText(""+visitors.size());
         }
 
         @Override
@@ -196,40 +194,41 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
             {
                 statusmessage = "Device data updated.";
                 upToDate = true;
-            }
-            else if (result == DEVICE_UP_TO_DATE)
+            } else if (result == DEVICE_UP_TO_DATE)
             {
                 statusmessage = "Device up to date.";
                 upToDate = true;
-            }
-            else if (result == MALFORMED_URL_EXCEPTION)
+            } else if (result == MALFORMED_URL_EXCEPTION)
             {
                 statusmessage = "Bad url...";
                 upToDate = false;
-            }
-            else if (result == IO_ERROR)
+            } else if (result == IO_ERROR)
             {
                 statusmessage = "Problems reading the downloaded data. ( I/O ERROR )";
                 upToDate = false;
-            }
-            else if (result == JSON_PARSE_ERROR)
+            } else if (result == JSON_PARSE_ERROR)
             {
                 statusmessage = "Bad JSON format on data.";
                 upToDate = false;
-            }
-            else if (result == ERROR)
+            } else if (result == ERROR)
             {
                 statusmessage = "Something went wrong.";
                 upToDate = false;
-            }
-            else
+            } else
             {
                 statusmessage = "Unknown errorcode... WHAT?!";
                 upToDate = false;
             }
 
-            Log.d("ASYNC_POST_EXECUTE", "Result-code="+result+", Message="+statusmessage);
+            Log.d("ASYNC_POST_EXECUTE", "Result-code=" + result + ", Message=" + statusmessage);
+
+            if (upToDate)
+            {
+                DashboardFragment.updateWidgets();
+                DashboardFragment.updateChartData();
+            }
             Snackbar.make(dashboardView, statusmessage, Snackbar.LENGTH_LONG).show();
         }
+
     }
 }

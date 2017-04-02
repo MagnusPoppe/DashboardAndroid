@@ -1,12 +1,20 @@
 <resources>
+    <!-- Other: -->
     <string name="app_name">Dashboard</string>
+
+    <!-- Status messages: -->
     <string name="NoConnection">"Ingen nettverkstilgang. Kan ikke laste varer."</string>
+    <string name="NotValidDate">NO RECORD FOUND.</string>
+
+    <!-- Dashboard page: -->
     <string name="NotYetLoaded">N/A</string>
-    <string name="visits_last_month">Besøk sist måned</string>
+    <string name="visits_last_month">Besøk de forrige 30 dagene</string>
     <string name="total_visits">Totalt antall besøk</string>
     <string name="unique_visits">Totalt antall unike besøk</string>
     <string name="visits_this_month">Unike besøkende denne måned</string>
     <string name="time_online">Tid Online</string>
+
+    <!-- Months to use with the "pretty print" datetime method. -->
     <string-array name="months">
         <item>January</item>
         <item>Febuary</item>

@@ -62,16 +62,12 @@ public class VisitListAdapter extends BaseAdapter
         list.textOrg.setText(current.organisation);
 
         // Formatting the time:
-        Calendar c = Calendar.getInstance();
-        DateTime dateTime;
-        if (current.visits.size() > 1)
-            dateTime = current.visits.get(current.visits.size()-1).datetime;
-        else if (current.visits.size() == 1)
-            dateTime = current.visits.get(0).datetime;
-        else
-            dateTime = new DateTime("0000-00-00 00:00:00");
+        DateTime dateTime = current.findLastVisit().datetime;
 
-        list.textDate.setText(dateTime.prettyPrint(view));
+        if (dateTime != null)
+            list.textDate.setText(dateTime.prettyPrint(view));
+        else
+            list.textDate.setText(view.getResources().getString(R.string.NotValidDate));
         return view;
     }
 
