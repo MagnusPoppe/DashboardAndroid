@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
 {
 
-    static int visitorID;
+    int visitorID;
 
     TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address;
     MapFragment mapFragment;
@@ -54,6 +55,22 @@ public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
         map.addMarker(new MarkerOptions().position(latLng).title("Visitor location"));
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+    }
+
+    public void switchViewEditInfo()
+    {
+        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+        {
+            Bundle args = new Bundle();
+            args.putInt(VisitListFragment.VISITOR_SELECTED, visitorID);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            EditInfoFragment fragment = new EditInfoFragment();
+            fragment.setArguments(args);
+            ft.replace(R.id.dashboard, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
     @Override
@@ -98,6 +115,16 @@ public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
 
         address = (TextView) view.findViewById(R.id.detailed_address);
         address.setText(visitor.city + ", " + visitor.country);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switchViewEditInfo();
+            }
+        });
 
         return view;
     }

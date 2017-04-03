@@ -163,12 +163,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16sp"
+        android:layout_margin="16sp"
         android:src="@android:drawable/ic_menu_edit"
         android:clickable="true"
         app:fabSize="normal"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@id/map"
-        app:layout_anchorGravity="bottom|right|end"
-        android:onClick="switchViewEditInfo"/>
+        app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,7 +1,6 @@
 package no.byteme.magnuspoppe.dashboard;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -13,15 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.maps.model.Dash;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -63,19 +59,6 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         }
         else
             Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
-    }
-
-    public void switchViewEditInfo(View v)
-    {
-        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
-        {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            EditInfoFragment fragment = new EditInfoFragment();
-            ft.replace(R.id.dashboard, fragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
     }
 
     private void updateDatabase()
@@ -241,7 +224,6 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
                 DashboardFragment.updateWidgets();
                 DashboardFragment.updateChartData();
                 Button updateBtn = (Button) findViewById(R.id.showListButton);
-                updateBtn.setVisibility(Button.VISIBLE);
             }
             Snackbar.make(dashboardView, statusmessage, Snackbar.LENGTH_LONG).show();
         }

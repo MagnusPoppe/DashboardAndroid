@@ -46,4 +46,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hostname">Vertsnavn</string>
+    <string name="org">Organisasjon</string>
+    <string name="lookup">Look up real information</string>
 </resources>

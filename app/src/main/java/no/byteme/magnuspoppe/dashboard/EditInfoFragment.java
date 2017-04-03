@@ -4,9 +4,11 @@ import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,9 +29,13 @@ public class EditInfoFragment extends Fragment implements OnMapReadyCallback
 
     int visitorID;
 
-    TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address;
+    TextView ip;
     MapFragment mapFragment;
     LatLng latLng;
+
+    TextInputLayout layoutOrg;
+    EditText org;
+
 
     public EditInfoFragment()
     {
@@ -51,7 +57,6 @@ public class EditInfoFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map)
     {
-        latLng = new LatLng(14.4124123, 12.1451241);
         map.addMarker(new MarkerOptions().position(latLng).title("Visitor location"));
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
@@ -64,22 +69,27 @@ public class EditInfoFragment extends Fragment implements OnMapReadyCallback
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_info, container, false);
 
-//        Bundle arguments = this.getArguments();
-//        if (arguments != null)
-//        {
-//            visitorID = arguments.getInt(VisitListFragment.VISITOR_SELECTED);
-//        }
-//        else getFragmentManager().popBackStack();
+        Bundle arguments = this.getArguments();
+        if (arguments != null)
+        {
+            visitorID = arguments.getInt(VisitListFragment.VISITOR_SELECTED);
+        }
+        else getFragmentManager().popBackStack(); // GÅ TILBAKE...
+
+        Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
+        latLng = new LatLng(visitor.latitude, visitor.longitude);
+
+        // CREATING TEXTVIEWS:
+        ip = (TextView) view.findViewById(R.id.edit_ip);
+        ip.setText(visitor.ip);
 
         // GETTING THE MAP FRAGMENT:
-        MapFragment mapFragment = (MapFragment) this.getChildFragmentManager().findFragmentById(R.id.otherMap);
+        mapFragment = (MapFragment) this.getChildFragmentManager().findFragmentById(R.id.otherMap);
         mapFragment.getMapAsync(this);
 
-//        Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
-//
-//        // CREATING TEXTVIEWS:
-//        ip = (TextView) view.findViewById(R.id.detailed_ip);
-//        ip.setText(visitor.ip);
+        // CREATING EDITTEXT FIELDS:
+        org = (EditText) view.findViewById(R.id.edit_org);
+        layoutOrg = (TextInputLayout) view.findViewById(R.id.edit_layout_org);
 
         return view;
     }

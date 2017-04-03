@@ -54,7 +54,6 @@
             android:layout_marginTop="50sp"
             android:text="Se alle besøkende til tjeneren"
             android:id="@+id/showListButton"
-            android:visibility="gone"
             android:onClick="switchViewVisitList"
             />
     </LinearLayout>
