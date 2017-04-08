@@ -127,6 +127,8 @@ public class DashboardFragment extends Fragment
             visits_total.setText("" + totalVisits);
         if (unique_visitor != null)
             unique_visitor.setText("" + visitors.size());
+
+        updateChartData();
     }
 
     public static void updateChartData()

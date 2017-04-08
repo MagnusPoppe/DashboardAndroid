@@ -1,173 +1,141 @@
-<android.support.design.widget.CoordinatorLayout
-             xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             xmlns:map="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="no.byteme.magnuspoppe.dashboard.DetailedInfoFragment"
-             android:background="@color/colorCustomBackground">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="no.byteme.magnuspoppe.dashboard.DetailedInfoFragment"
+    android:background="@color/colorCustomBackground"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
-<!-- ØVRE DEL AV VIEW. KART -->
-        <fragment
-            android:id="@+id/map"
+<!-- OVERSKRIFT, IP + NAVN-->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".4"
-            android:elevation="2sp"
-            android:background="@color/colorCustomBackground"
-            class="com.google.android.gms.maps.MapFragment"/>
+            android:layout_height="wrap_content"
+            android:text="192.168.3.10"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:id="@+id/detailed_ip"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:id="@+id/detailed_hostname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:text="Magnus @ hjemme i oslo"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            />
 
-<!-- NEDRE DEL AV VIEW. INFORMASJON -->
-        <ScrollView
+<!-- BESØKSINFORMASJON -->
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".6">
-        <LinearLayout
-            android:padding="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical">
-
-    <!-- OVERSKRIFT, IP + NAVN-->
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1">
             <TextView
+                android:paddingTop="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="192.168.3.10"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:id="@+id/detailed_ip"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline"
-                android:textAlignment="center"
+                android:text="Besøksinformasjon"
+                android:textAppearance="@android:style/TextAppearance.Material.Title"
                 />
-            <TextView
-                android:id="@+id/detailed_hostname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textAlignment="center"
-                android:text="Magnus @ hjemme i oslo"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline"
-                />
-
-    <!-- BESØKSINFORMASJON -->
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="0,1">
+            <TableRow android:padding="5sp">
                 <TextView
-                    android:paddingTop="20sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Besøksinformasjon"
-                    android:textAppearance="@android:style/TextAppearance.Material.Title"
+                    android:text="Siste Besøk"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
                     />
-                <TableRow android:padding="5sp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Siste Besøk"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                    <TextView
-                        android:id="@+id/detailed_last_visit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="13. Januar 2017, kl 13:00"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                </TableRow>
-                <TableRow android:padding="5sp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Første Besøk"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                    <TextView
-                        android:id="@+id/detailed_first_visit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="13. Januar 2017, kl 13:00"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                </TableRow>
-
-                <TableRow android:padding="5sp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Antall Besøk"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                    <TextView
-                        android:id="@+id/detailed_total_number_of_visits"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="60"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                </TableRow>
-
-    <!-- GEOGRAFISK INFORMSJON: -->
                 <TextView
-                    android:paddingTop="20sp"
+                    android:id="@+id/detailed_last_visit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Geografisk informasjon:"
-                    android:textAppearance="@android:style/TextAppearance.Material.Title"
+                    android:text="13. Januar 2017, kl 13:00"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
                     />
-                <TableRow android:padding="5sp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="koordinater:"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                    <TextView
-                        android:id="@+id/detailed_latlng"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="12.123123, 43.123145125"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                </TableRow>
-                <TableRow android:padding="5sp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Adresse:"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                    <TextView
-                        android:id="@+id/detailed_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0258 Oslo, Norge"
-                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-                        />
-                </TableRow>
+            </TableRow>
+            <TableRow android:padding="5sp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Første Besøk"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+                <TextView
+                    android:id="@+id/detailed_first_visit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="13. Januar 2017, kl 13:00"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+            </TableRow>
 
-            </TableLayout>
-        </LinearLayout>
-        </ScrollView>
+            <TableRow android:padding="5sp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Antall Besøk"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+                <TextView
+                    android:id="@+id/detailed_total_number_of_visits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="60"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+            </TableRow>
+
+<!-- GEOGRAFISK INFORMSJON: -->
+            <TextView
+                android:paddingTop="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Geografisk informasjon:"
+                android:textAppearance="@android:style/TextAppearance.Material.Title"
+                />
+            <TableRow android:padding="5sp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="koordinater:"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+                <TextView
+                    android:id="@+id/detailed_latlng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12.123123, 43.123145125"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+            </TableRow>
+            <TableRow android:padding="5sp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Adresse:"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+                <TextView
+                    android:id="@+id/detailed_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0258 Oslo, Norge"
+                    android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                    />
+            </TableRow>
+
+        </TableLayout>
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16sp"
-        android:src="@android:drawable/ic_menu_edit"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_anchor="@id/map"
-        app:layout_anchorGravity="bottom|right|end"/>
-</android.support.design.widget.CoordinatorLayout>
+    </ScrollView>
+</LinearLayout>

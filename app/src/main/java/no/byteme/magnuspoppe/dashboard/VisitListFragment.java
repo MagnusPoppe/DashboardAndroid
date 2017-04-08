@@ -84,7 +84,7 @@ public class VisitListFragment extends Fragment
                 item.putInt(VISITOR_SELECTED, position);
                 if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    DetailedInfoFragment fragment = new DetailedInfoFragment();
+                    InfoFragment fragment = new InfoFragment();
                     fragment.setArguments(item);
                     ft.replace(R.id.dashboard, fragment);
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

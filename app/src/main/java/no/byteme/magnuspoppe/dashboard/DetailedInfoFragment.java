@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Use the {@link DetailedInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
+public class DetailedInfoFragment extends Fragment
 {
 
     int visitorID;
@@ -50,30 +50,6 @@ public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapReady(GoogleMap map)
-    {
-        map.addMarker(new MarkerOptions().position(latLng).title("Visitor location"));
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-    }
-
-    public void switchViewEditInfo()
-    {
-        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
-        {
-            Bundle args = new Bundle();
-            args.putInt(VisitListFragment.VISITOR_SELECTED, visitorID);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            EditInfoFragment fragment = new EditInfoFragment();
-            fragment.setArguments(args);
-            ft.replace(R.id.dashboard, fragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -87,9 +63,6 @@ public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
         }
         else getFragmentManager().popBackStack();
 
-        // GETTING THE MAP FRAGMENT:
-        MapFragment mapFragment = (MapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
 
@@ -115,16 +88,6 @@ public class DetailedInfoFragment extends Fragment implements OnMapReadyCallback
 
         address = (TextView) view.findViewById(R.id.detailed_address);
         address.setText(visitor.city + ", " + visitor.country);
-
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                switchViewEditInfo();
-            }
-        });
 
         return view;
     }

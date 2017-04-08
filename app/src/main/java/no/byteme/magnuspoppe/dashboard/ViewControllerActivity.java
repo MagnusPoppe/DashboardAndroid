@@ -28,10 +28,13 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
 {
     public static ArrayList<Visitor> visitors;
     public static ArrayList<Visit> last30Days;
-    public static boolean upToDate = false;
     public static int totalVisits = 0;
     public static int monthlyVisits = 0;
-    private View dashboardView;
+    static View dashboardView;
+
+    // STATES:
+    public static boolean upToDate = false;
+    public static boolean updating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,7 +61,17 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
             }
         }
         else
-            Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
+        {
+            if (updating)
+            {
+                Snackbar.make(v, "Wait for update from the internet.", Snackbar.LENGTH_SHORT).show();
+            }
+            else
+            {
+                updateDatabase();
+                Snackbar.make(v, "Trying new update...", Snackbar.LENGTH_SHORT);
+            }
+        }
     }
 
     private void updateDatabase()
@@ -66,6 +79,9 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         if (isOnline())
         {
             AsyncGetTraffic asyncCall = new AsyncGetTraffic();
+
+            // Setting update state:
+            updating = true;
 
             if (LIVE_CONNECTION) asyncCall.execute(LIVE_DOMAIN + PATH + "traffic/", "GET");
             else asyncCall.execute(LOCAL_DOMAIN + PATH + "traffic/", "GET");
@@ -123,8 +139,8 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
                 {
                     payload.append(responseString);
                 }
-                String payloadbody = payload.toString();
-                if (! localDataUpToDate()) ;
+
+                if (! localDataUpToDate())
                     parseData(payload.toString());
 
                 result = DEVICE_UPDATED;
@@ -225,6 +241,8 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
                 DashboardFragment.updateChartData();
                 Button updateBtn = (Button) findViewById(R.id.showListButton);
             }
+            // No longer updating:
+            updating = false;
             Snackbar.make(dashboardView, statusmessage, Snackbar.LENGTH_LONG).show();
         }
 
