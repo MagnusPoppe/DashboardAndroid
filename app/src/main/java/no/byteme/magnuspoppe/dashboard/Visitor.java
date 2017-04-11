@@ -118,4 +118,20 @@ public class Visitor
 
         return ip != null ? ip.equals(visitor.ip) : visitor.ip == null;
     }
+
+    /**
+     * @return JSON object of this visitor:
+     */
+    public String toJSON()
+    {
+        return "{" +
+                    "\"ip\": \""+ip+ "\", "+
+                    "\"hostname\": \""+ hostname+"\", "+
+                    "\"organisation\": \"" + organisation+"\", "+
+                    "\"city\": \""+city+"\", "+
+                    "\"country\": \""+ country+"\", "+
+                    "\"latitude\": "+latitude+", "+
+                    "\"longitude\": "+longitude+
+                "}";
+    }
 }

@@ -28,7 +28,7 @@ import static no.byteme.magnuspoppe.dashboard.VisitListFragment.VISITOR_SELECTED
  */
 public class InfoFragment extends Fragment implements OnMapReadyCallback
 {
-
+    Fragment activeFragment;
     int visitorID;
     FloatingActionButton fabEdit, fabSave;
     MapFragment mapFragment;
@@ -105,14 +105,14 @@ public class InfoFragment extends Fragment implements OnMapReadyCallback
 
         // Setting the first seen view.
         // Setting up the fragment:
-        Fragment newFragment = new DetailedInfoFragment();
+        Fragment activeFragment = new DetailedInfoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_layout_info, newFragment);
+        transaction.replace(R.id.main_layout_info, activeFragment);
 
         // Bundling additional information:
         Bundle item = new Bundle();
         item.putInt(VISITOR_SELECTED, visitorID);
-        newFragment.setArguments(item);
+        activeFragment.setArguments(item);
         transaction.addToBackStack(null);
 
         // Commit the transaction
@@ -129,14 +129,14 @@ public class InfoFragment extends Fragment implements OnMapReadyCallback
 
         getFragmentManager().popBackStack();
 
-        Fragment newFragment = new EditInfoFragment();
+        activeFragment = new EditInfoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_layout_info, newFragment);
+        transaction.replace(R.id.main_layout_info, activeFragment);
 
         // Bundling additional information:
         Bundle item = new Bundle();
         item.putInt(VISITOR_SELECTED, visitorID);
-        newFragment.setArguments(item);
+        activeFragment.setArguments(item);
         transaction.addToBackStack(null);
 
         // Commit the transaction
@@ -145,6 +145,13 @@ public class InfoFragment extends Fragment implements OnMapReadyCallback
 
     public void switchViewDetailedInfo()
     {
+        // Saving data edited.
+        if (activeFragment instanceof EditInfoFragment)
+        {
+            EditInfoFragment f = (EditInfoFragment) activeFragment;
+            f.saveEditedData();
+        }
+
         // Switching buttons:
         fabEdit.setVisibility(View.VISIBLE);
         fabSave.setVisibility(View.GONE);
@@ -153,15 +160,15 @@ public class InfoFragment extends Fragment implements OnMapReadyCallback
             getFragmentManager().popBackStack();
 
         // Setting up the fragment:
-        Fragment newFragment = new DetailedInfoFragment();
+        activeFragment = new DetailedInfoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_layout_info, newFragment);
+        transaction.replace(R.id.main_layout_info, activeFragment);
         transaction.addToBackStack(null);
 
         // Bundling additional information:
         Bundle item = new Bundle();
         item.putInt(VISITOR_SELECTED, visitorID);
-        newFragment.setArguments(item);
+        activeFragment.setArguments(item);
 
         // Commit the transaction
         transaction.commit();

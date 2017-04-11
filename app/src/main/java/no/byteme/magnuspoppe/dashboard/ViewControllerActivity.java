@@ -74,7 +74,7 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         }
     }
 
-    private void updateDatabase()
+    public void updateDatabase()
     {
         if (isOnline())
         {

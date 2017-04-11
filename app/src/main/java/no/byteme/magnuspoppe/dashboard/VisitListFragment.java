@@ -1,10 +1,13 @@
 package no.byteme.magnuspoppe.dashboard;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,9 @@ public class VisitListFragment extends Fragment
     public final static String VISITOR_SELECTED = "VisitorSelected";
     ListView visitsList;
     ArrayList<Visitor> visitors;
+    SwipeRefreshLayout refreshLayout;
+    ViewControllerActivity activity;
+
 
     public VisitListFragment()
     {
@@ -42,6 +48,12 @@ public class VisitListFragment extends Fragment
     {
         VisitListFragment fragment = new VisitListFragment();
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
     }
 
     @Override
@@ -62,6 +74,23 @@ public class VisitListFragment extends Fragment
 
         // Filling the list view:
         visitsList = (ListView) v.findViewById(R.id.visitList);
+        activity = (ViewControllerActivity) getActivity();
+
+        /*
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        refreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        activity.updateDatabase();
+                        refreshLayout.setRefreshing(false);
+                    }
+                }
+        );
+
         visitors = ViewControllerActivity.visitors;
 
         VisitListAdapter adapter = new VisitListAdapter(container.getContext(), visitors);

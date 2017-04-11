@@ -2,6 +2,7 @@ package no.byteme.magnuspoppe.dashboard;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,11 +48,17 @@ import java.util.ArrayList;
  */
 public class EditInfoFragment extends Fragment
 {
-
+    Context context;
     int visitorID;
     TextView ip;
     TextInputEditText editOrg, editHost;
 
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public EditInfoFragment()
     {
@@ -106,6 +114,28 @@ public class EditInfoFragment extends Fragment
         });
 
         return view;
+    }
+
+    /**
+     * Saves the edited data into a visitor.
+     * @return visitor containing the new data.
+     */
+    public Visitor saveEditedData()
+    {
+        Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
+        String org = "" + editOrg.getText();
+        String host = "" + editHost.getText();
+
+        if (!org.equals(""))
+            visitor.organisation = org;
+
+        if (!host.equals(""))
+            visitor.hostname = host;
+
+        VisitorREST rest = new VisitorREST(context);
+        rest.put(visitor);
+
+        return visitor;
     }
 
     /**

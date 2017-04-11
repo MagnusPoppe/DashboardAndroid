@@ -21,6 +21,4 @@ interface TrafficAPI
     String TRAFFIC_FOR_SITE = "traffic/site/";
     String VISITOR = "visitor/";
     String SITE    = "site/";
-
-    boolean isOnline();
 }
