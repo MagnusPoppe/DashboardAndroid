@@ -1,21 +1,16 @@
 package no.byteme.magnuspoppe.dashboard;
 
-import android.app.FragmentTransaction;
-import android.content.res.Configuration;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -31,6 +26,14 @@ public class DetailedInfoFragment extends Fragment
     TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address;
     MapFragment mapFragment;
     LatLng latLng;
+    Context context;
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public DetailedInfoFragment()
     {
@@ -64,7 +67,7 @@ public class DetailedInfoFragment extends Fragment
         else getFragmentManager().popBackStack();
 
 
-        Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
+        final Visitor visitor = ViewControllerActivity.visitors.get(visitorID);
 
         // CREATING TEXTVIEWS:
         ip = (TextView) view.findViewById(R.id.detailed_ip);
@@ -88,6 +91,18 @@ public class DetailedInfoFragment extends Fragment
 
         address = (TextView) view.findViewById(R.id.detailed_address);
         address.setText(visitor.city + ", " + visitor.country);
+
+        Button delete = (Button) view.findViewById(R.id.deleteButton);
+        delete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                VisitorREST rest = new VisitorREST(context);
+                rest.delete(visitor);
+                getFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }

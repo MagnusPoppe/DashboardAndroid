@@ -53,9 +53,14 @@ public class VisitorREST implements TrafficAPI
 
         call.execute(url + PATH + VISITOR + visitor.ip, "PUT", visitor.toJSON());
     }
-    public void DELETE(Visitor visitor)
+    public void delete(Visitor visitor)
     {
-        // Not implemented.
+        VisitorRESTCall call = new VisitorRESTCall();
+        String url = "";
+        if (LIVE_CONNECTION)    url = LIVE_DOMAIN;
+        else                    url = LOCAL_DOMAIN;
+
+        call.execute(url + PATH + VISITOR + visitor.ip, "DELETE", visitor.toJSON());
     }
 
     private class VisitorRESTCall extends AsyncTask<String, Void, Long>
@@ -86,7 +91,7 @@ public class VisitorREST implements TrafficAPI
                 connection.setRequestMethod(params[HTTP_METHOD]);
                 connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
 
-                if( params[HTTP_METHOD].equals("PUT") || params[HTTP_METHOD].equals("POST") )
+                if( params[HTTP_METHOD].equals("PUT") || params[HTTP_METHOD].equals("POST") || params[HTTP_METHOD].equals("DELETE") )
                 {
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
@@ -99,20 +104,20 @@ public class VisitorREST implements TrafficAPI
                 }
                 connection.connect();
 
-                if( params[HTTP_METHOD].equals("PUT") || params[HTTP_METHOD].equals("POST") )
+                if( params[HTTP_METHOD].equals("PUT") || params[HTTP_METHOD].equals("POST") || params[HTTP_METHOD].equals("DELETE") )
                 {
                     OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-
+                    out.write(params[PAYLOAD]);
                     out.close();
                 }
 
                 int response = connection.getResponseCode();
+                String checkResponse = "responsecode: " + response;
+                if(response != HttpURLConnection.HTTP_OK)
+                    return ERROR;
 
                 if (params[HTTP_METHOD].equals("GET"))
                 {
-                    if(response != HttpURLConnection.HTTP_OK)
-                        return ERROR;
-
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder payload = new StringBuilder();
                     String responseString;
@@ -120,11 +125,6 @@ public class VisitorREST implements TrafficAPI
                     while ((responseString = reader.readLine()) != null)
                         payload.append(responseString);
                     parseData(payload.toString());
-                }
-                else if (params[HTTP_METHOD].equals("PUT") || params[HTTP_METHOD].equals("POST"))
-                {
-                    if(connection.getResponseCode() != HttpURLConnection.HTTP_OK)
-                        return ERROR;
                 }
 
                 result = OK;

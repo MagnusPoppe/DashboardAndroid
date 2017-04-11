@@ -31,7 +31,7 @@ public class VisitListFragment extends Fragment
     ArrayList<Visitor> visitors;
     SwipeRefreshLayout refreshLayout;
     ViewControllerActivity activity;
-
+    VisitListAdapter adapter;
 
     public VisitListFragment()
     {
@@ -75,6 +75,9 @@ public class VisitListFragment extends Fragment
         // Filling the list view:
         visitsList = (ListView) v.findViewById(R.id.visitList);
         activity = (ViewControllerActivity) getActivity();
+        visitors = ViewControllerActivity.visitors;
+        adapter = new VisitListAdapter(container.getContext(), visitors);
+        visitsList.setAdapter(adapter);
 
         /*
          * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
@@ -85,16 +88,11 @@ public class VisitListFragment extends Fragment
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        activity.updateDatabase();
+                        refresh();
                         refreshLayout.setRefreshing(false);
                     }
                 }
         );
-
-        visitors = ViewControllerActivity.visitors;
-
-        VisitListAdapter adapter = new VisitListAdapter(container.getContext(), visitors);
-        visitsList.setAdapter(adapter);
 
         visitsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -123,5 +121,11 @@ public class VisitListFragment extends Fragment
             }
         });
         return v;
+    }
+
+    private void refresh()
+    {
+        activity.updateDatabase();
+        adapter.notifyDataSetChanged();
     }
 }
