@@ -9,6 +9,9 @@ import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,6 +54,28 @@ public class VisitListFragment extends Fragment
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.list_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+                refresh();
+                return true;
+            case R.id.menu_settings:
+                openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
     public void onAttach(Context context)
     {
         super.onAttach(context);
@@ -68,9 +93,13 @@ public class VisitListFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_visit_list, container, false);
+
         // Setting up the toolbar:
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.my_toolbar);
         getActivity().setActionBar(toolbar);
+
+        // Setting up the menu:
+        setHasOptionsMenu(true);
 
         // Filling the list view:
         visitsList = (ListView) v.findViewById(R.id.visitList);
@@ -127,5 +156,18 @@ public class VisitListFragment extends Fragment
     {
         activity.updateDatabase();
         adapter.notifyDataSetChanged();
+    }
+
+
+    private void openSettings()
+    {
+        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment fragment = new Preferences();
+            ft.replace(R.id.dashboard, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 }

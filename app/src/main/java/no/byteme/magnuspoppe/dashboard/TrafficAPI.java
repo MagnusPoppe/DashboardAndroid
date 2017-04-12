@@ -14,7 +14,8 @@ interface TrafficAPI
 
     // Base addresses:  192.168.10.103
     String LOCAL_DOMAIN = "http://192.168.10.103:80/traffic/";
-    String LIVE_DOMAIN  = "http://byteme.no/";
+    //String LIVE_DOMAIN  = "http://byteme.no/";
+    String LIVE_DOMAIN  = "http://itfag.usn.no/~210852/";
 
     // Addons to get more data.
     String TRAFFIC = "traffic/";

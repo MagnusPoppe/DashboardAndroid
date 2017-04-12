@@ -2,6 +2,7 @@ package no.byteme.magnuspoppe.dashboard;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewControllerActivity extends Activity  implements TrafficAPI
 {
@@ -31,6 +33,9 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
     public static int totalVisits = 0;
     public static int monthlyVisits = 0;
     static View dashboardView;
+
+    public static final String SETTINGS = "no.byteme.magnuspoppe.dashboard.preferences";
+    public static boolean LIVE_CONNECTION;
 
     // STATES:
     public static boolean upToDate = false;
@@ -42,8 +47,22 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_controller);
 
+        setNetworkPreferences();
         dashboardView  = findViewById(R.id.dashboard);
         updateDatabase();
+    }
+
+    public void setNetworkPreferences()
+    {
+        SharedPreferences preferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+
+        if (! preferences.contains("liveconn"))
+        {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("liveconn", true);
+            editor.commit();
+        }
+        LIVE_CONNECTION = preferences.getBoolean("liveconn", true);
     }
 
     public void switchViewVisitList(View v)
@@ -195,7 +214,16 @@ public class ViewControllerActivity extends Activity  implements TrafficAPI
                 visitors.add( new Visitor( (JSONObject) array.get(i)) );
                 totalVisits += visitors.get(i).visits.size();
             }
-        }
+
+            Visitor[] arr = new Visitor[visitors.size()];
+            arr = visitors.toArray(arr);
+
+            Arrays.sort(arr);
+            visitors = new ArrayList<Visitor>();
+
+            for(Visitor v : arr)
+                visitors.add(v);
+;        }
 
         @Override
         protected void onPostExecute(Long result)

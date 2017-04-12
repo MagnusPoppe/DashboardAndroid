@@ -55,9 +55,8 @@ public class InfoFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map)
     {
-        map.addMarker(new MarkerOptions().position(latLng).title("Visitor location"));
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
     }
 
     @Override

@@ -4,7 +4,7 @@
              android:layout_height="match_parent"
              tools:context="no.byteme.magnuspoppe.dashboard.DashboardFragment"
              android:id="@+id/fragment_dashboard_portrait"
-             android:background="@color/colorPrimary"
+             android:background="@drawable/gradient_background_main"
     >
 
     <LinearLayout

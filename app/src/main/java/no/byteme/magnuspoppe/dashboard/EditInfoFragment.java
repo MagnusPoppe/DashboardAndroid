@@ -235,7 +235,9 @@ public class EditInfoFragment extends Fragment
             {
                 statusmessage = "Updated textFields.";
 
-                // Fikk rar feilmelding når jeg prøvde å oppdatere disse fra async. Måtte endre litt.                 editHost.setText(hostname);
+                // Fikk rar feilmelding når jeg prøvde å oppdatere disse fra async. Måtte endre litt.
+                if( !hostname.equals("No Hostname") )
+                    editHost.setText(hostname);
                 editOrg.setText(org);
             }
             else if (result == MALFORMED_URL_EXCEPTION)

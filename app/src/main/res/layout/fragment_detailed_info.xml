@@ -58,6 +58,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="Bedriftsnavn"
+                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                        />
+
+                    <TextView
+                        android:id="@+id/detailed_org"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ORG NAME!"
+                        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                        />
+                </TableRow>
+
+                <TableRow android:padding="5sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="Siste Besøk"
                         android:textAppearance="@android:style/TextAppearance.Material.Body1"
                         />

@@ -23,7 +23,7 @@ public class DetailedInfoFragment extends Fragment
 
     int visitorID;
 
-    TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address;
+    TextView ip, hostname, lastVisit, firstVisit, numVisits, latlong, address, org;
     MapFragment mapFragment;
     LatLng latLng;
     Context context;
@@ -74,7 +74,10 @@ public class DetailedInfoFragment extends Fragment
         ip.setText(visitor.ip);
 
         hostname = (TextView) view.findViewById(R.id.detailed_hostname);
-        hostname.setText( visitor.hostname.equals("NULL") ? visitor.organisation : visitor.hostname );
+        hostname.setText( visitor.hostname );
+
+        org = (TextView) view.findViewById(R.id.detailed_org);
+        org.setText( visitor.organisation );
 
         lastVisit = (TextView) view.findViewById(R.id.detailed_last_visit);
         lastVisit.setText(visitor.findLastVisit().datetime.prettyPrint(view.getResources()));

@@ -48,8 +48,10 @@ public class VisitorREST implements TrafficAPI
     {
         VisitorRESTCall call = new VisitorRESTCall();
         String url = "";
-        if (LIVE_CONNECTION)    url = LIVE_DOMAIN;
-        else                    url = LOCAL_DOMAIN;
+        if (ViewControllerActivity.LIVE_CONNECTION)
+            url = LIVE_DOMAIN;
+        else
+            url = LOCAL_DOMAIN;
 
         call.execute(url + PATH + VISITOR + visitor.ip, "PUT", visitor.toJSON());
     }
@@ -57,8 +59,10 @@ public class VisitorREST implements TrafficAPI
     {
         VisitorRESTCall call = new VisitorRESTCall();
         String url = "";
-        if (LIVE_CONNECTION)    url = LIVE_DOMAIN;
-        else                    url = LOCAL_DOMAIN;
+        if (ViewControllerActivity.LIVE_CONNECTION)
+            url = LIVE_DOMAIN;
+        else
+            url = LOCAL_DOMAIN;
 
         call.execute(url + PATH + VISITOR + visitor.ip, "DELETE", visitor.toJSON());
     }

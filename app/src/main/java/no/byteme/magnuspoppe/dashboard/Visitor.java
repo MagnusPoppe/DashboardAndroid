@@ -1,5 +1,7 @@
 package no.byteme.magnuspoppe.dashboard;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * Created by MagnusPoppe on 23/03/2017.
  */
 
-public class Visitor
+public class Visitor implements Comparable
 {
     protected String ip;
     protected String hostname;
@@ -133,5 +135,33 @@ public class Visitor
                     "\"latitude\": "+latitude+", "+
                     "\"longitude\": "+longitude+
                 "}";
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o)
+    {
+        Visitor other = (Visitor) o;
+        Visit lastOther = other.findLastVisit();
+        Visit lastThis = findLastVisit();
+
+        if (lastOther != null)
+        {
+            if (lastOther.datetime == null) return -1;
+        }
+        else
+        {
+            return -1;
+        }
+
+        if (lastThis != null)
+        {
+            if (lastThis.datetime == null) return 1;
+        }
+        else
+        {
+            return 1;
+        }
+
+        return lastOther.compareTo(lastThis);
     }
 }
