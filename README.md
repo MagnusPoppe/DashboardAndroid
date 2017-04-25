@@ -2,7 +2,11 @@
 
 Dashboard er en app laget for å vise siste data fra tjeneren din. Den viser statistikk over alle besøk til web-området den er installert på. Gjennom datamodellen kan vi se hvem som har besøkt siden, og hvor mange ganger. Vi lagerer også annen informasjon som geografisk plassering og dato per besøk, samt hvilken side besøket var til. Dataene som blir lagret skal utvides videre, og da blir denne appen mer og mer nyttig.
 
-![alt text](http://byteme.no/image/Dashboard.png)
+
+
+![alt text](http://byteme.no/image/Dashboard-all.png)
+
+
 
 ### Appens “sider”: 
 
