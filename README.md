@@ -15,11 +15,9 @@ Dette er en liste over alle besøkende. Denne er sortert på dato på telefonen 
 ###### Informasjon:
 Informasjonssiden er en detaljert visning av en gitt besøkende. Den inneholder kart av hvor besøkende holder til, samt et av disse fragmentene:
 
-	Detaljert informasjon: 
-	Her finner man detaljer om en gitt besøkende.
+- Detaljert informasjon: Her finner man detaljer om en gitt besøkende.
 
-	Endre informasjon:
-	her kan man endre enkel informasjon om besøkende. Man kan også gjøre oppslag for å få 	komplette informasjon fra nettet. 
+- Endre informasjon:her kan man endre enkel informasjon om besøkende. Man kan også gjøre oppslag for å få komplette informasjon fra nettet. 
 
 ###### Innstillinger: 
 Her kan man velge om man vil bruke lokal eller live tilkobling. Denne siden kan utvides videre.
