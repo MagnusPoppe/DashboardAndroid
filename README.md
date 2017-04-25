@@ -30,7 +30,7 @@ Her kan man velge om man vil bruke lokal eller live tilkobling. Denne siden kan 
 Alle disse sidene er til for å vise informasjon om tjeneren fort. Til fremtiden skal det også implementeres støtte for sesjoner, slik at man kan se hvor lenge hvert besøk varer. Jeg vil også legge inn støtte for engelsk språk.
 
 ### Design 
-Jeg har hovedsakelig forsøkt å bruke “Material Design” gjennom hele appen. Appens design er basert på noen skisser jeg lagde tidligere i semesteret (milepæl 1). Alle sidene ble veldig like denne siden, utenom “dashboard” der grafen ble til en linjegraf istedenfor paigraf. 
+Jeg har hovedsakelig forsøkt å bruke “Material Design” gjennom hele appen. Appens design er basert på noen skisser jeg lagde tidligere i semesteret (milepæl 1). [Se Design spesifikasjon her.](http://byteme.no/document/designspesifikasjon.pdf "Design spesifikasjon fra før utførelse av prosjektet") Alle sidene ble veldig like denne siden, utenom “dashboard” der grafen ble til en linjegraf istedenfor paigraf. 
 
 Jeg har valgt å kun tillate portrett modus på alle sidene grunnet dette er den eneste funksjonelle måten å bruke appen på. Man kan bruke landskapsmodus på Dashboard siden, den vil da vise en større og mer detaljert versjon av grafen. Landskapsmodus er kun lagt til her fordi det la til funksjonalitet til appen. 
 
